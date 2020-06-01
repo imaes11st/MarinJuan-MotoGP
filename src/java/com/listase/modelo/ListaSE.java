@@ -5,14 +5,14 @@
  */
 package com.listase.modelo;
 
-import com.listase.excepciones.InfanteExcepcion;
+import com.listase.excepciones.CorredorExcepcion;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
+import com.listaenlazada.modelo.Corredor;
 /**
  *
- * @author carloaiza
+ * @author Marin
  */
 public class ListaSE implements Serializable{
     private Nodo cabeza;
@@ -28,11 +28,11 @@ public class ListaSE implements Serializable{
         this.cabeza = cabeza;
     }
     
-    public void adicionarNodo(Infante infante)
+    public void adicionarNodo(Corredor corredor)
     {
         if(cabeza ==null)
         {
-            cabeza = new Nodo(infante);
+            cabeza = new Nodo(corredor);
         }
         else
         {
@@ -43,20 +43,20 @@ public class ListaSE implements Serializable{
                 temp= temp.getSiguiente();
             }
             //temp va estar ubicado en el ultimo nodo
-            temp.setSiguiente(new Nodo(infante));
+            temp.setSiguiente(new Nodo(corredor));
         }
         
     }
     
-    public void adicionarNodoAlInicio(Infante infante)
+    public void adicionarNodoAlInicio(Corredor corredor)
     {
         if(cabeza ==null)
         {
-            cabeza = new Nodo(infante);
+            cabeza = new Nodo(corredor);
         }
         else
         {
-            Nodo temp= new Nodo(infante);
+            Nodo temp= new Nodo(corredor);
             temp.setSiguiente(cabeza);
             cabeza= temp;
         }
@@ -82,16 +82,16 @@ public class ListaSE implements Serializable{
         }
     }
     
-    public String obtenerListadoInfantes()
+    public String obtenerListadoCorredores()
     {
         
         //Un método recursivo que recoora mis infantes y que sacando la
         // info la adicione een el string
         
-        return listarInfantes("");
+        return ListaSE.this.listarCorredores("");
     }
     
-    public String listarInfantes(String listado)
+    public String listarCorredores(String listado)
     {
         if(cabeza !=null)
         {
@@ -104,20 +104,20 @@ public class ListaSE implements Serializable{
             }
             return listado;
         }
-        return "No hay infantes";
+        return "No hay Corredores";
     }
     
     
-     public List obtenerListaInfantes()
+     public List obtenerListaCorredores()
     {
-        List<Infante> listado = new ArrayList<>();
+        List<Corredor> listado = new ArrayList<>();
         //Un método recursivo que recoora mis infantes y que sacando la
         // info la adicione een el string
-        listarInfantes(listado);
+        listarCorredores(listado);
         return listado;
     }
     
-    public void listarInfantes(List listado)
+    public void listarCorredores(List listado)
     {
         if(cabeza !=null)
         {
@@ -174,7 +174,7 @@ public class ListaSE implements Serializable{
         }
     }
     
-    public short contarInfantesxGenero(boolean genero)
+    public short contarCorredoresxGenero(boolean genero)
     {
         if(cabeza ==null)
         {
@@ -187,7 +187,7 @@ public class ListaSE implements Serializable{
             short cont=0;
             while(temp!=null)
             {
-                if(temp.getDato().isGenero()==genero)
+                if(temp.getDato().getGenero()==genero)
                 {
                   cont++;   
                 }                
@@ -206,7 +206,7 @@ es el código a eliminar digo que cabeza=cabeza.siguiente si,no llamó al ayudan
     hay en el siguiente es lo que se desea eliminar, 
     le digo al ayudante que en siguiente coloque lo que tiene el siguiente en siguiente 
 */
-    public void eliminarInfante(short codigo ) throws InfanteExcepcion
+    public void eliminarCorredor(short codigo ) throws CorredorExcepcion
     {
         if(cabeza !=null)
         {
@@ -229,14 +229,14 @@ es el código a eliminar digo que cabeza=cabeza.siguiente si,no llamó al ayudan
                     temp = temp.getSiguiente();
                 }
                 
-                throw new InfanteExcepcion("El código "+codigo +" no existe en la lista");
+                throw new CorredorExcepcion("El código "+codigo +" no existe en la lista");
             }
         }
-        throw new InfanteExcepcion("La lista de infantes está vacía");
+        throw new CorredorExcepcion("La lista de corredores está vacía");
     }
     
     
-     public Infante obtenerInfante(short codigo ) throws InfanteExcepcion
+     public Corredor obtenerCorredor(short codigo ) throws CorredorExcepcion
     {
         if(cabeza !=null)
         {
@@ -256,10 +256,10 @@ es el código a eliminar digo que cabeza=cabeza.siguiente si,no llamó al ayudan
                     temp = temp.getSiguiente();
                 }
                 
-                throw new InfanteExcepcion("El código "+codigo +" no existe en la lista");
+                throw new CorredorExcepcion("El código "+codigo +" no existe en la lista");
             }
         }
-        throw new InfanteExcepcion("La lista de infantes está vacía");
+        throw new CorredorExcepcion("La lista de corredores está vacía");
     }
     
 }

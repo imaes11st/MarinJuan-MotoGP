@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 /**
  *
- * @author carloaiza
+ * @author Marin
  */
 public class Departamento implements Serializable{
     private String codigo;

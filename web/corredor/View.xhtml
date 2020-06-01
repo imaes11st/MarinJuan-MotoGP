@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CorredorViewDlg" widgetVar="CorredorViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewCorredorTitle}">
+            <h:form id="CorredorViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{corredorController.selected != null}">
+                        <h:outputText value="#{bundle.ViewCorredorLabel_codigo}"/>
+                        <h:outputText value="#{corredorController.selected.codigo}" title="#{bundle.ViewCorredorTitle_codigo}"/>
+                        <h:outputText value="#{bundle.ViewCorredorLabel_nombre}"/>
+                        <h:outputText value="#{corredorController.selected.nombre}" title="#{bundle.ViewCorredorTitle_nombre}"/>
+                        <h:outputText value="#{bundle.ViewCorredorLabel_edad}"/>
+                        <h:outputText value="#{corredorController.selected.edad}" title="#{bundle.ViewCorredorTitle_edad}"/>
+                        <h:outputText value="#{bundle.ViewCorredorLabel_ciudadNacimiento}"/>
+                        <h:outputText value="#{corredorController.selected.ciudadNacimiento}" title="#{bundle.ViewCorredorTitle_ciudadNacimiento}"/>
+                        <h:outputText value="#{bundle.ViewCorredorLabel_genero}"/>
+                        <p:selectBooleanCheckbox value="#{corredorController.selected.genero}" disabled="true"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="CorredorViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

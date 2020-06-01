@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 /**
  *
- * @author carloaiza
+ * @author Marin
  */
 public class Ciudad implements Serializable{
     private String codigo;

@@ -6,24 +6,25 @@
 package com.listase.modelo;
 
 import java.io.Serializable;
+import com.listaenlazada.modelo.Corredor;
 
 /**
  *
- * @author carloaiza
+ * @author Marin
  */
 public class Nodo implements Serializable{
-    private Infante dato;
+    private Corredor dato;
     private Nodo siguiente;
 
-    public Nodo(Infante dato) {
+    public Nodo(Corredor dato) {
         this.dato = dato;
     }
 
-    public Infante getDato() {
+    public Corredor getDato() {
         return dato;
     }
 
-    public void setDato(Infante dato) {
+    public void setDato(Corredor dato) {
         this.dato = dato;
     }
 

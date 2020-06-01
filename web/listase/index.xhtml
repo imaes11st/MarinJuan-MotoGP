@@ -3,9 +3,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-    <h:head>
-        <title>Facelet Title</title>
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    
+    <ui:composition template="/template.xhtml">
+        
+        <ui:define name="encabezado">
+        
         <style type="text/css">
             .ui-diagram-element {   
                 width:8em; 
@@ -16,9 +20,7 @@
                 border-radius: 4px;
                 border: 1px solid transparent;
                 background-color: #98AFC7;
-                color: #ffffff;     
-                background:url(imagenes/logo.png)  no-repeat scroll left center transparent;
-                background-size: 100px 100px;
+                color: #ffffff;
             }
 
             .ui-diagram-success {
@@ -38,85 +40,84 @@
                 color: #816A51;
             }
         </style>
-    </h:head>
-    <h:body>
-        <p:growl id="grwlErrores"/>
-        <h:form id="frmInfante">
-            <p:commandButton value="Volver" action="inicio" />
-            <p:panel header="Lista Simplemente Enlazada Infantes - Total Infantes #{sesionInfante.listaInfantes.contarNodos()}">
+    </ui:define>
+        
+        <ui:define name="body">
+            <h:form id="frmCorredor">
+            <p:panel header="#{bundle.listase} Corredor - Total Corredores #{sesionCorredor.listaCorredores.contarNodos()}">
                 <p:panelGrid columns="2">
-                    <p:panel header="Datos Infante">
+                    <p:panel header="Datos Corredores">
 
                         <p:panelGrid columns="2">
                             <p:outputLabel for="txtNombre" value="Nombre"/>
-                            <p:inputText id="txtNombre" required="true" disabled="#{sesionInfante.deshabilitarFormulario}"
-                                         value="#{sesionInfante.infante.nombre}"   />
+                            <p:inputText id="txtNombre" required="true" disabled="#{sesionCorredor.deshabilitarFormulario}"
+                                         value="#{sesionCorredor.corredor.nombre}"   />
                             <p:outputLabel for="spEdad" value="Edad"/>
-                            <p:spinner id="spEdad" required="true" min="1" max="7" disabled="#{sesionInfante.deshabilitarFormulario}"
-                                       value="#{sesionInfante.infante.edad}"/>
+                            <p:spinner id="spEdad" required="true" min="1" max="7" disabled="#{sesionCorredor.deshabilitarFormulario}"
+                                       value="#{sesionCorredor.corredor.edad}"/>
                             <p:outputLabel value="Género"/>
-                            <p:selectOneMenu value="#{sesionInfante.infante.genero}"
-                                             disabled="#{sesionInfante.deshabilitarFormulario}">
+                            <p:selectOneMenu value="#{sesionCorredor.corredor.genero}"
+                                             disabled="#{sesionCorredor.deshabilitarFormulario}">
                                 <f:selectItem itemLabel="Niño" itemValue="true"/>
                                 <f:selectItem itemLabel="Niña" itemValue="false"/>
                             </p:selectOneMenu>
 
                             <p:outputLabel value="Departamento"/>
-                            <p:selectOneMenu value="#{sesionInfante.codigoDeptoSel}" disabled="#{sesionInfante.deshabilitarFormulario}" >
-                                <f:selectItems value="#{sesionInfante.controlLocalidades.departamentos}" 
+                            <p:selectOneMenu value="#{sesionCorredor.codigoDeptoSel}" disabled="#{sesionCorredor.deshabilitarFormulario}" >
+                                <f:selectItems value="#{sesionCorredor.controlLocalidades.departamentos}" 
                                                var="depto" itemLabel="#{depto.nombre}" itemValue="#{depto.codigo}"
                                                />
                                 <p:ajax event="change" update="cmbCiudad" process="cmbCiudad" />
                             </p:selectOneMenu>
 
                             <p:outputLabel value="Ciudad"/>
-                            <p:selectOneMenu id="cmbCiudad" value="#{sesionInfante.infante.ciudadNacimiento}" disabled="#{sesionInfante.deshabilitarFormulario}"  >
-                                <f:selectItems value="#{sesionInfante.controlLocalidades.obtenerCiudadesxDepto(sesionInfante.codigoDeptoSel)}" 
+                            <p:selectOneMenu id="cmbCiudad" value="#{sesionCorredor.corredor.ciudadNacimiento}" disabled="#{sesionCorredor.deshabilitarFormulario}"  >
+                                <f:selectItems value="#{sesionCorredor.controlLocalidades.obtenerCiudadesxDepto(sesionCorredor.codigoDeptoSel)}" 
                                                var="ciudad" itemLabel="#{ciudad.nombre}" itemValue="#{ciudad.nombre}"
                                                />
                             </p:selectOneMenu>
 
 
                             <p:outputLabel value="Al inicio"/>
-                            <p:selectOneMenu value="#{sesionInfante.alInicio}" disabled="#{sesionInfante.deshabilitarFormulario}">
+                            <p:selectOneMenu value="#{sesionCorredor.alInicio}" disabled="#{sesionCorredor.deshabilitarFormulario}">
                                 <f:selectItem itemLabel="SI" itemValue="1"/>
                                 <f:selectItem itemLabel="NO" itemValue="0"/>
                             </p:selectOneMenu>
                         </p:panelGrid>
-                        <p:commandButton value="Guardar" update="frmInfante,:grwlErrores"
-                                         action="#{sesionInfante.guardarInfante()}" disabled="#{sesionInfante.deshabilitarFormulario}"/>
+                        <p:commandButton value="Guardar" update="frmCorredor,:growl"
+                                         action="#{sesionCorredor.guardarCorredor()}" disabled="#{sesionCorredor.deshabilitarFormulario}"/>
 
-                        <p:commandButton value="Nuevo" update="frmInfante" action="#{sesionInfante.habilitarFormulario()}"
-                                         disabled="#{!sesionInfante.deshabilitarFormulario}"
+                        <p:commandButton value="Nuevo" update="frmCorredor" action="#{sesionCorredor.habilitarFormulario()}"
+                                         disabled="#{!sesionCorredor.deshabilitarFormulario}"
                                          />
-                        <p:commandButton value="Invertir"  update="frmInfante,:grwlErrores"
-                                         action="#{sesionInfante.invertirLista()}"
+                        <p:commandButton value="Invertir"  update="frmCorredor,:growl"
+                                         action="#{sesionCorredor.invertirLista()}"
                                          />
                         <p:panelGrid columns="3">
-                            <p:commandButton value="Primero" action="#{sesionInfante.irPrimero()}" 
-                                             update="frmInfante"/>
-                            <p:commandButton value="Siguiente" action="#{sesionInfante.irSiguiente()}"
-                                             update="frmInfante"/>       
-                            <p:commandButton value="Último" action="#{sesionInfante.irUltimo()}" 
-                                             update="frmInfante"/>                           
+                            <p:commandButton value="Primero" action="#{sesionCorredor.irPrimero()}" 
+                                             update="frmCorredor"/>
+                            <p:commandButton value="Siguiente" action="#{sesionCorredor.irSiguiente()}"
+                                             update="frmCorredor"/>       
+                            <p:commandButton value="Último" action="#{sesionCorredor.irUltimo()}" 
+                                             update="frmCorredor"/>                           
 
                         </p:panelGrid>
                         <p:outputLabel value="Código a eliminar: "/>
-                        <p:inputText value="#{sesionInfante.codigoEliminar}" maxlength="4" size="10"/>
-                        <p:commandButton value="Eliminar" action="#{sesionInfante.eliminarInfante()}" 
-                                         update="frmInfante,:grwlErrores"
+                        <p:inputText value="#{sesionCorredor.codigoEliminar}" maxlength="4" size="10"/>
+                        <p:commandButton value="Eliminar" action="#{sesionCorredor.eliminarCorredor()}" 
+                                         update="frmCorredor,:growl"
                                          />
                     </p:panel>
                     <p:panel header="Reportes">
-                        <p:outputLabel value="Promedio de Edad de los infantes: #{sesionInfante.listaInfantes.promediarEdades()}"/>
+                        <p:outputLabel value="Promedio de Edad de los corredores: #{sesionCorredor.listaCorredores.promediarEdades()}"/>
                         <br/>
-                        <p:outputLabel value="#{sesionInfante.listaInfantes.obtenerListadoInfantes()}"/>
+                        <p:outputLabel value="#{sesionCorredor.listaCorredores.obtenerListadoCorredores()}"/>
                         <br/>
                         <h:panelGrid columns="2">
                             <p:outputLabel value="Cantidad Niños: "/>
-                            <p:outputLabel value="#{sesionInfante.listaInfantes.contarInfantesxGenero(true)}"/>               
+                            <p:outputLabel value="#{sesionCorredor.listaCorredores.contarCorredoresxGenero(true)}"/>               
                             <p:outputLabel value="Cantidad Niñas: "/>
-                            <p:outputLabel value="#{sesionInfante.listaInfantes.contarInfantesxGenero(false)}"/>
+                            <p:outputLabel value="#{sesionCorredor.listaCorredores.contarCorredoresxGenero(false)}"/>
                         </h:panelGrid>
                     </p:panel>
 
@@ -124,11 +125,11 @@
                 </p:panelGrid>
 
                 <p:panel header="Gráfico" id="pnlVista" style="width: 100%;">
-                    <p:commandButton value="#{sesionInfante.textoVista}" 
-                                     action="#{sesionInfante.cambiarVistaInfantes()}"
+                    <p:commandButton value="#{sesionCorredor.textoVista}" 
+                                     action="#{sesionCorredor.cambiarVistaCorredores()}"
                                      update="pnlVista"/>
 
-                    <p:dataTable rendered="#{sesionInfante.textoVista=='Gráfico'}"  value="#{sesionInfante.listadoInfantes}" var="inf">
+                    <p:dataTable rendered="#{sesionCorredor.textoVista=='Gráfico'}"  value="#{sesionCorredor.listadoCorredores}" var="inf">
                         <p:column>
                             <f:facet name="header">
                                 <p:outputLabel value="Código"/>
@@ -162,10 +163,10 @@
                         </p:column>
                     </p:dataTable>
 
-                    <p:diagram id="diagrama"  rendered="#{sesionInfante.textoVista=='Tabla'}" value="#{sesionInfante.model}" style="height:600px; width: 100%;" styleClass="ui-widget-content" />
+                    <p:diagram id="diagrama"  rendered="#{sesionCorredor.textoVista=='Tabla'}" value="#{sesionCorredor.model}" style="height:600px; width: 100%;" styleClass="ui-widget-content" />
 
                     <p:remoteCommand name="elementClickRight" 
-                                     actionListener="#{sesionInfante.onClickRight()}" 
+                                     actionListener="#{sesionCorredor.onClickRight()}" 
                                      >
                     </p:remoteCommand>
 
@@ -186,38 +187,48 @@
                                    targetFilter=".ui-diagram-element"
                                    >
                         <p:menuitem value="Ver datos" 
-                                    action="#{sesionInfante.obtenerInfanteDiagrama()}" 
-                                    update="panelInfante"                                    
-                                    oncomplete="PF('dlgDatosInfante').show();" />
+                                    action="#{sesionCorredor.obtenerCorredorDiagrama()}" 
+                                    update="panelCorredor"                                  
+                                    oncomplete="PF('dlgDatosCorredor').show();" />
                         <p:menuitem value="Eliminar"/>
                         <p:menuitem value="Enviar al final" update="pnlVista"                                    
-                                    action="#{sesionInfante.enviarAlFinal()}"/>
+                                    action="#{sesionCorredor.enviarAlFinal()}"/>
                         <p:menuitem value="Enviar al inicio" update="pnlVista"                                    
-                                    action="#{sesionInfante.enviarAlInicio()}"                                    
+                                    action="#{sesionCorredor.enviarAlInicio()}"                                    
                                     />
                         <p:menuitem value="Adelantar/Perder Posición"/>
                     </p:contextMenu>
                 </p:panel>
             </p:panel>
             
-            <p:dialog id="modalInfante" header="Datos Infante" widgetVar="dlgDatosInfante" 
-                      modal="true" height="100">
-                <p:panel id="panelInfante">
+            <p:dialog id="modalCorredor" appendTo="@(body)" header="Datos Corredor" widgetVar="dlgDatosCorredor"
+                      modal="true" height="100" />
+                
+                <p:panel id="panelCorredor" >
                     <h:panelGrid columns="2">
                         <h:outputText value="Código:" />
-                        <h:outputText value="#{sesionInfante.infanteDiagrama.codigo}" />
+                        <h:outputText value="@@@" />
                         <h:outputText value="Nombre:" />
-                        <h:outputText value="#{sesionInfante.infanteDiagrama.nombre}" />
+                        <h:outputText value="#{sesionCorredor.corredorDiagrama.nombre}" />
                         <h:outputText value="Género:" />
-                        <h:outputText rendered="#{sesionInfante.infanteDiagrama.genero}" value="Masculino" />
-                        <h:outputText rendered="#{!sesionInfante.infanteDiagrama.genero}" value="Femenino" />
+                        <h:outputText rendered="#{sesionCorredor.corredorDiagrama.genero}" value="Masculino" />
+                        <h:outputText rendered="#{!sesionCorredor.corredorDiagrama.genero}" value="Femenino" />
                     </h:panelGrid>
                     
                 </p:panel>
-            </p:dialog> 
+                   
+                      
         </h:form>
+            
 
-    </h:body>
+        </ui:define>
+    </ui:composition>
+    
+    
+    
 </html>
+
+
+
 
 

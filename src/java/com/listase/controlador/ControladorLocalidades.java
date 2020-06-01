@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  *
- * @author carloaiza
+ * @author Marin
  */
 public class ControladorLocalidades {
     private List<Ciudad> ciudades;

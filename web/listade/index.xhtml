@@ -39,96 +39,117 @@
     </h:head>
     <h:body>
         <p:growl id="grwlErrores"/>
-        <h:form id="frmInfante">
+        <h:form id="frmCorredor">
             <p:commandButton value="Volver" action="inicio" />
-            <p:panel header="Lista Doblemente Enlazada Infantes - Total Infantes #{sesionInfanteDE.listaInfantes.contarNodos()}">
+            <p:panel header="Lista Doblemente Enlazada Corredores- Total Corredores #{sesionCorredorDE.listaCorredores.contarNodos()}">
                 <p:panelGrid columns="2">
-                    <p:panel header="Datos Infante">
+                    <p:panel header="Datos Corredor">
 
                         <p:panelGrid columns="2">
                             <p:outputLabel for="txtNombre" value="Nombre"/>
-                            <p:inputText id="txtNombre" required="true" disabled="#{sesionInfanteDE.deshabilitarFormulario}"
-                                         value="#{sesionInfanteDE.infante.nombre}"   />
+                            <p:inputText id="txtNombre" required="true" disabled="#{sesionCorredorDE.deshabilitarFormulario}"
+                                         value="#{sesionCorredorDE.corredor.nombre}"   />
                             <p:outputLabel for="spEdad" value="Edad"/>
-                            <p:spinner id="spEdad" required="true" min="1" max="7" disabled="#{sesionInfanteDE.deshabilitarFormulario}"
-                                       value="#{sesionInfanteDE.infante.edad}"/>
+                            <p:spinner id="spEdad" required="true" min="1" max="7" disabled="#{sesionCorredorDE.deshabilitarFormulario}"
+                                       value="#{sesionCorredorDE.corredor.edad}"/>
                             <p:outputLabel value="Género"/>
-                            <p:selectOneMenu value="#{sesionInfanteDE.infante.genero}"
-                                             disabled="#{sesionInfanteDE.deshabilitarFormulario}">
+                            <p:selectOneMenu value="#{sesionCorredorDE.corredor.genero}"
+                                             disabled="#{sesionCorredorDE.deshabilitarFormulario}">
                                 <f:selectItem itemLabel="Niño" itemValue="true"/>
                                 <f:selectItem itemLabel="Niña" itemValue="false"/>
                             </p:selectOneMenu>
 
                             <p:outputLabel value="Departamento"/>
-                            <p:selectOneMenu value="#{sesionInfanteDE.codigoDeptoSel}" disabled="#{sesionInfanteDE.deshabilitarFormulario}" >
-                                <f:selectItems value="#{sesionInfanteDE.controlLocalidades.departamentos}" 
+                            <p:selectOneMenu value="#{sesionCorredorDE.codigoDeptoSel}" disabled="#{sesionCorredorDE.deshabilitarFormulario}" >
+                                <f:selectItems value="#{sesionCorredorDE.controlLocalidades.departamentos}" 
                                                var="depto" itemLabel="#{depto.nombre}" itemValue="#{depto.codigo}"
                                                />
                                 <p:ajax event="change" update="cmbCiudad" process="cmbCiudad" />
                             </p:selectOneMenu>
 
                             <p:outputLabel value="Ciudad"/>
-                            <p:selectOneMenu id="cmbCiudad" value="#{sesionInfanteDE.infante.ciudadNacimiento}" disabled="#{sesionInfanteDE.deshabilitarFormulario}"  >
-                                <f:selectItems value="#{sesionInfanteDE.controlLocalidades.obtenerCiudadesxDepto(sesionInfanteDE.codigoDeptoSel)}" 
+                            <p:selectOneMenu id="cmbCiudad" value="#{sesionCorredorDE.corredor.ciudadNacimiento}" disabled="#{sesionCorredorDE.deshabilitarFormulario}"  >
+                                <f:selectItems value="#{sesionCorredorDE.controlLocalidades.obtenerCiudadesxDepto(sesionCorredorDE.codigoDeptoSel)}" 
                                                var="ciudad" itemLabel="#{ciudad.nombre}" itemValue="#{ciudad.nombre}"
                                                />
                             </p:selectOneMenu>
 
 
                             <p:outputLabel value="Al inicio"/>
-                            <p:selectOneMenu value="#{sesionInfanteDE.alInicio}" disabled="#{sesionInfanteDE.deshabilitarFormulario}">
+                            <p:selectOneMenu value="#{sesionCorredorDE.alInicio}" disabled="#{sesionCorredorDE.deshabilitarFormulario}">
                                 <f:selectItem itemLabel="SI" itemValue="1"/>
                                 <f:selectItem itemLabel="NO" itemValue="0"/>
                             </p:selectOneMenu>
                         </p:panelGrid>
-                        <p:commandButton value="Guardar" update="frmInfante,:grwlErrores"
-                                         action="#{sesionInfanteDE.guardarInfante()}" disabled="#{sesionInfanteDE.deshabilitarFormulario}"/>
+                        <p:commandButton value="Guardar" update="frmCorredor,:grwlErrores"
+                                         action="#{sesionCorredorDE.guardarCorredor()}" disabled="#{sesionCorredorDE.deshabilitarFormulario}"/>
 
-                        <p:commandButton value="Nuevo" update="frmInfante" action="#{sesionInfanteDE.habilitarFormulario()}"
-                                         disabled="#{!sesionInfanteDE.deshabilitarFormulario}"
+                        <p:commandButton value="Nuevo" update="frmCorredor" action="#{sesionCorredorDE.habilitarFormulario()}"
+                                         disabled="#{!sesionCorredorDE.deshabilitarFormulario}"
                                          />
-                        <p:commandButton value="Invertir"  update="frmInfante,:grwlErrores"
-                                         action="#{sesionInfanteDE.invertirLista()}"
+                        <p:commandButton value="Invertir"  update="frmCorredor,:grwlErrores"
+                                         action="#{sesionCorredorDE.invertirLista()}"
                                          />
+                        <p:commandButton value="Mostrar Corredor menor Edad"/>
                         <p:panelGrid columns="4">
-                            <p:commandButton value="Primero" action="#{sesionInfanteDE.irPrimero()}" 
-                                             update="frmInfante"/>
-                            <p:commandButton value="Anterior" action="#{sesionInfanteDE.irAnterior()}"
-                                             update="frmInfante"/>
-                            <p:commandButton value="Siguiente" action="#{sesionInfanteDE.irSiguiente()}"
-                                             update="frmInfante"/>       
-                            <p:commandButton value="Último" action="#{sesionInfanteDE.irUltimo()}" 
-                                             update="frmInfante"/>                           
+                            <p:commandButton value="Primero" action="#{sesionCorredorDE.irPrimero()}" 
+                                             update="frmCorredor"/>
+                            <p:commandButton value="Anterior" action="#{sesionCorredorDE.irAnterior()}"
+                                             update="frmCorredor"/>
+                            <p:commandButton value="Siguiente" action="#{sesionCorredorDE.irSiguiente()}"
+                                             update="frmCorredor"/>       
+                            <p:commandButton value="Último" action="#{sesionCorredorDE.irUltimo()}" 
+                                             update="frmCorredor"/>                           
 
                         </p:panelGrid>
                         <p:outputLabel value="Código a eliminar: "/>
-                        <p:inputText value="#{sesionInfanteDE.codigoEliminar}" maxlength="4" size="10"/>
-                        <p:commandButton value="Eliminar" action="#{sesionInfanteDE.eliminarInfante()}" 
-                                         update="frmInfante,:grwlErrores"
+                        <p:inputText value="#{sesionCorredorDE.codigoEliminar}" maxlength="4" size="10"/>
+                        <p:commandButton value="Eliminar" action="#{sesionCorredorDE.eliminarCorredor()}" 
+                                         update="frmCorredor,:grwlErrores"
                                          />
                     </p:panel>
+                    <h:panelGroup>
+                        <p:panel header="Panel contador compartido">
+                             <p:poll interval="3" update="panelContador" />
+                            <h:panelGroup id="panelContador">
+                                <p:outputLabel value="Contador #{appBean.cont}"/>
+                                <p:commandButton 
+                                    rendered="#{appBean.validarTurno(loginBean.usuarioAutenticado.correo)}"
+                                    
+                                    value="Aumentar" action="#{appBean.aumentarContador(loginBean.usuarioAutenticado.correo)}"
+                                                 update="panelContador"    />
+                                
+                            </h:panelGroup>
+                            
+                        </p:panel>
+                        
+                        
                     <p:panel header="Reportes">
-                        <p:outputLabel value="Promedio de Edad de los infantes: #{sesionInfanteDE.listaInfantes.promediarEdades()}"/>
+                        <p:outputLabel value="Promedio de Edad de los corredores: #{sesionCorredorDE.listaCorredores.promediarEdades()}"/>
                         <br/>
-                        <p:outputLabel value="#{sesionInfanteDE.listaInfantes.obtenerListadoInfantes()}"/>
+                        <p:outputLabel value="#{sesionCorredorDE.listaCorredores.obtenerListadoCorredores()}"/>
                         <br/>
                         <h:panelGrid columns="2">
                             <p:outputLabel value="Cantidad Niños: "/>
-                            <p:outputLabel value="#{sesionInfanteDE.listaInfantes.contarInfantesxGenero(true)}"/>               
+                            <p:outputLabel value="#{sesionCorredorDE.listaCorredores.contarCorredoresxGenero(true)}"/>               
                             <p:outputLabel value="Cantidad Niñas: "/>
-                            <p:outputLabel value="#{sesionInfanteDE.listaInfantes.contarInfantesxGenero(false)}"/>
+                            <p:outputLabel value="#{sesionCorredorDE.listaCorredores.contarCorredoresxGenero(false)}"/>
                         </h:panelGrid>
                     </p:panel>
+                    <p:commandButton value="Ver Corredor Menor"                                     
+                                    action="#{sesionCorredorDE.obtenerCorredorMenor()}" 
+                                    update="panelCorredor"                                    
+                                    oncomplete="PF('dlgDatosCorredor').show();" />
 
-
+                    </h:panelGroup>
                 </p:panelGrid>
 
                 <p:panel header="Gráfico" id="pnlVista" style="width: 100%;">
-                    <p:commandButton value="#{sesionInfanteDE.textoVista}" 
-                                     action="#{sesionInfanteDE.cambiarVistaInfantes()}"
+                    <p:commandButton value="#{sesionCorredorDE.textoVista}" 
+                                     action="#{sesionCorredorDE.cambiarVistaCorredores()}"
                                      update="pnlVista"/>
 
-                    <p:dataTable rendered="#{sesionInfanteDE.textoVista=='Gráfico'}"  value="#{sesionInfanteDE.listadoInfantes}" var="inf">
+                    <p:dataTable rendered="#{sesionCorredorDE.textoVista=='Gráfico'}"  value="#{sesionCorredorDE.listadoCorredores}" var="inf">
                         <p:column>
                             <f:facet name="header">
                                 <p:outputLabel value="Código"/>
@@ -162,10 +183,10 @@
                         </p:column>
                     </p:dataTable>
 
-                    <p:diagram id="diagrama" rendered="#{sesionInfanteDE.textoVista=='Tabla'}" value="#{sesionInfanteDE.model}" style="height:600px; width: 100%;" styleClass="ui-widget-content" />
+                    <p:diagram id="diagrama" rendered="#{sesionCorredorDE.textoVista=='Tabla'}" value="#{sesionCorredorDE.model}" style="height:600px; width: 100%;" styleClass="ui-widget-content" />
 
                     <p:remoteCommand name="elementClickRight" 
-                                     actionListener="#{sesionInfanteDE.onClickRight()}" 
+                                     actionListener="#{sesionCorredorDE.onClickRight()}" 
                                      >
                     </p:remoteCommand>
 
@@ -184,37 +205,74 @@
 
                     <p:contextMenu id="mnuDiagrama" for="diagrama"
                                    targetFilter=".ui-diagram-element"
-                                   >
+                                   />
                         <p:menuitem value="Ver datos" 
-                                    action="#{sesionInfanteDE.obtenerInfanteDiagrama()}" 
-                                    update="panelInfante"                                    
-                                    oncomplete="PF('dlgDatosInfante').show();" />
-                        <p:menuitem value="Eliminar"/>
+                                    action="#{sesionCorredorDE.obtenerCorredorDiagrama()}" 
+                                    update="panelCorredor"                                    
+                                    oncomplete="PF('dlgDatosCorredor').show();" />
+                        
+                        <p:menuitem value="Ver posición" 
+                                    action="#{sesionCorredorDE.obtenerPosicionCorredor()}"
+                                    update="panelPosicion"                                    
+                                    oncomplete="PF('dlgPosicionCorredor').show();" />
+                        <p:menuitem value="Eliminar"/>                        
                         <p:menuitem value="Enviar al final" update="pnlVista"                                    
-                                    action="#{sesionInfanteDE.enviarAlFinal()}"/>
+                                    action="#{sesionCorredorDE.enviarAlFinal()}"/>
                         <p:menuitem value="Enviar al inicio" update="pnlVista"                                    
-                                    action="#{sesionInfanteDE.enviarAlInicio()}"                                    
-                                    />
-                        <p:menuitem value="Adelantar/Perder Posición"/>
-                    </p:contextMenu>
-                </p:panel>
+                                    action="#{sesionCorredorDE.enviarAlInicio()}"                                    
+                                    /> 
+                        <p:menuitem value="Adelantar/Perder Posición"
+                                    action="#{sesionCorredorDE.obtenerPosicionCorredor()}"
+                                    update="panelGestionPosicion"                                    
+                                    oncomplete="PF('dlgGestionPosicionCorredor').show();"/>
+                                  </p:panel>
             </p:panel>
             
-            <p:dialog id="modalInfante" header="Datos Infante" widgetVar="dlgDatosInfante" 
+            <p:dialog id="modalCorredor" header="Datos Corredor" widgetVar="dlgDatosCorredor" 
                       modal="true" height="100">
-                <p:panel id="panelInfante">
+                <p:panel id="panelCorredor">
                     <h:panelGrid columns="2">
                         <h:outputText value="Código:" />
-                        <h:outputText value="#{sesionInfanteDE.infanteDiagrama.codigo}" />
+                        <h:outputText value="#{sesionCorredorDE.corredorDiagrama.codigo}" />
                         <h:outputText value="Nombre:" />
-                        <h:outputText value="#{sesionInfanteDE.infanteDiagrama.nombre}" />
+                        <h:outputText value="#{sesionCorredorDE.corredorDiagrama.nombre}" />
                         <h:outputText value="Género:" />
-                        <h:outputText rendered="#{sesionInfanteDE.infanteDiagrama.genero}" value="Masculino" />
-                        <h:outputText rendered="#{!sesionInfanteDE.infanteDiagrama.genero}" value="Femenino" />
+                        <h:outputText rendered="#{sesionCorredorDE.corredorDiagrama.genero}" value="Masculino" />
+                        <h:outputText rendered="#{!sesionCorredorDE.corredorDiagrama.genero}" value="Femenino" />
                     </h:panelGrid>
                     
                 </p:panel>
             </p:dialog> 
+            
+            <p:dialog id="posicionCorredor" header="Ver posición Corredor" widgetVar="dlgPosicionCorredor"
+                modal="true" height="50">                          
+                <h:panelGroup id="panelPosicion">
+                    <p:outputLabel value="Posición #{sesionCorredorDE.posicionCorredor}"/>
+                </h:panelGroup>
+            </p:dialog>
+            
+            <p:dialog id="gestionPosicionCorredor" header="Adelantar/perder posición corredor" 
+                      widgetVar="dlgGestionPosicionCorredor"
+                modal="true" height="150">                          
+                <h:panelGroup id="panelGestionPosicion">
+                    <h:panelGrid columns="2">
+                        <p:outputLabel value="Posición Actual"/>
+                        <p:outputLabel value="#{sesionCorredorDE.posicionCorredor}"/>
+                        <p:outputLabel value="Acción"/>
+                        <p:selectOneMenu value="#{sesionCorredorDE.opcionElegida}">
+                            <f:selectItem itemLabel="Ganar" itemValue="1"/>
+                            <f:selectItem itemLabel="Perder" itemValue="0"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Número posiciones"/>
+                        <p:spinner min="1" value="#{sesionCorredorDE.numeroPosiciones}"/>
+                    </h:panelGrid>
+                    <p:commandButton value="Aplicar" action="#{sesionCorredorDE.cambiarPosicion()}"
+                                     onclick="PF('dlgGestionPosicionCorredor').hide();"
+                                     ajax="false"
+                                      update="pnlVista"/>
+                    
+                </h:panelGroup>
+            </p:dialog>
         </h:form>
 
     </h:body>

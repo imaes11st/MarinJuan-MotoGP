@@ -5,24 +5,26 @@
  */
 package com.listase.modelo;
 
+import com.listaenlazada.modelo.Corredor;
+
 /**
  *
- * @author carloaiza
+ * @author Marin
  */
 public class NodoDE {
-    private Infante dato;
+    private Corredor dato;
     private NodoDE siguiente;
     private NodoDE anterior;
 
-    public NodoDE(Infante dato) {
+    public NodoDE(Corredor dato) {
         this.dato = dato;
     }
 
-    public Infante getDato() {
+    public Corredor getDato() {
         return dato;
     }
 
-    public void setDato(Infante dato) {
+    public void setDato(Corredor dato) {
         this.dato = dato;
     }
 
