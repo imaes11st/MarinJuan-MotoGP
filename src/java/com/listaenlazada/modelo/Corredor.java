@@ -135,7 +135,7 @@ public class Corredor implements Serializable {
 
     @Override
     public String toString() {
-        return "com.listaenlazada.modelo.Corredor[ codigo=" + codigo + " ]";
+        return "[ codigo=" + codigo + " ]";
     }
     
 }

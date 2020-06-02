@@ -61,6 +61,12 @@ public class SesionCorredor implements Serializable {
     
     private Corredor corredorDiagrama;
     
+    private int posicionCorredor;
+    
+    private String opcionElegida="1";
+ 
+    private int numeroPosiciones=1;
+    
     @EJB
     private CorredorFacade connCorredor;
     
@@ -116,9 +122,33 @@ public class SesionCorredor implements Serializable {
     public void setCorredorDiagrama(Corredor corredorDiagrama) {
         this.corredorDiagrama = corredorDiagrama;
     }
-    
-    
 
+    public int getPosicionCorredor() {
+        return posicionCorredor;
+    }
+
+    public void setPosicionCorredor(int posicionCorredor) {
+        this.posicionCorredor = posicionCorredor;
+    }
+
+    public String getOpcionElegida() {
+        return opcionElegida;
+    }
+
+    public void setOpcionElegida(String opcionElegida) {
+        this.opcionElegida = opcionElegida;
+    }
+
+    public int getNumeroPosiciones() {
+        return numeroPosiciones;
+    }
+
+    public void setNumeroPosiciones(int numeroPosiciones) {
+        this.numeroPosiciones = numeroPosiciones;
+    }
+    
+    
+        
     public short getCorredorSeleccionado() {
         return corredorSeleccionado;
     }
@@ -437,6 +467,59 @@ public class SesionCorredor implements Serializable {
         }
     }
     
-    
-    
-}
+    public void obtenerPosicionCorredor()
+    {
+        try {
+            posicionCorredor = listaCorredores.obtenerPosicionCorredor(corredorSeleccionado);
+        } catch (CorredorExcepcion ex) {
+            JsfUtil.addErrorMessage(ex.getMessage());
+        }
+    }
+    //Cambiar Posicion del corredor
+       public void cambiarPosicion()
+    {
+        boolean bandera=false;
+        int posicionFinal=0;
+        switch(opcionElegida)
+        {
+            //Ganar posicion
+            case "1":
+                if(numeroPosiciones <= (posicionCorredor-1) )
+                {
+                    bandera=true;
+                    posicionFinal = posicionCorredor - numeroPosiciones;
+                }
+                break;
+            //Perder posicion
+            case "0":
+                if(numeroPosiciones <= (listaCorredores.contarNodos()-posicionCorredor))
+                {
+                    bandera=true;
+                    posicionFinal = posicionCorredor + numeroPosiciones;
+                }
+                break;
+        }
+        
+        if(bandera)
+        {
+            try {
+                //Realizaria la función de insertar
+                Corredor datosCorredor = listaCorredores.obtenerCorredor(corredorSeleccionado);
+                // cambia la cantidad de corredores
+                listaCorredores.eliminarCorredor(corredorSeleccionado);
+                listaCorredores.adicionarNodoPosicion(posicionFinal, datosCorredor);
+                irPrimero();
+                JsfUtil.addSuccessMessage("Se ha realizado el cambio");
+                
+                
+            } catch (CorredorExcepcion ex) {
+               JsfUtil.addErrorMessage(ex.getMessage());
+            }
+            
+        }
+        else
+        {
+            JsfUtil.addErrorMessage("El número de posiciones no es válido para el corredor dado");
+        }
+    }   
+ }

@@ -15,7 +15,9 @@ import com.listaenlazada.modelo.Corredor;
 public class Nodo implements Serializable{
     private Corredor dato;
     private Nodo siguiente;
-
+    private Nodo anterior;
+    
+    
     public Nodo(Corredor dato) {
         this.dato = dato;
     }
@@ -35,6 +37,16 @@ public class Nodo implements Serializable{
     public void setSiguiente(Nodo siguiente) {
         this.siguiente = siguiente;
     }
+
+    public Nodo getAnterior() {
+        return anterior;
+    }
+
+    public void setAnterior(Nodo anterior) {
+        this.anterior = anterior;
+    }
+    
+    
     
     
 }

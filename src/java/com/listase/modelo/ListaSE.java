@@ -88,7 +88,7 @@ public class ListaSE implements Serializable{
         //Un método recursivo que recoora mis infantes y que sacando la
         // info la adicione een el string
         
-        return ListaSE.this.listarCorredores("");
+         return listarCorredores("");
     }
     
     public String listarCorredores(String listado)
@@ -261,5 +261,48 @@ es el código a eliminar digo que cabeza=cabeza.siguiente si,no llamó al ayudan
         }
         throw new CorredorExcepcion("La lista de corredores está vacía");
     }
+     //
+      public int obtenerPosicionCorredor(short codigo) throws CorredorExcepcion {
+        if (cabeza != null) {
+            int cont = 1;
+            Nodo temp = cabeza;
+            while (temp != null) {
+                if (temp.getDato().getCodigo() == codigo) {
+                    return cont;
+                }
+                temp = temp.getSiguiente();
+                cont++;
+            }
+            throw new CorredorExcepcion("El código ingresado no ");
+
+        }
+        throw new CorredorExcepcion("La lista de corredores está vacía");
+    }
+        public void adicionarNodoPosicion(int posicion, Corredor dato) throws CorredorExcepcion {
+        if (cabeza != null) {
+            if (posicion == 1) {
+                adicionarNodoAlInicio(dato);               
+            } else {
+                int cont = 1;
+                Nodo temp = cabeza;
+                while (temp != null) {
+                    if ((posicion - 1) == cont) {
+                        Nodo nodoInsertar = new Nodo(dato);
+                        nodoInsertar.setSiguiente(temp.getSiguiente());
+                        temp.setSiguiente(nodoInsertar);
+                        if(nodoInsertar.getSiguiente()!=null)
+                            nodoInsertar.getSiguiente().setAnterior(nodoInsertar);
+                        nodoInsertar.setAnterior(temp);
+                        break ;
+                    }
+                    temp = temp.getSiguiente();
+                    cont++;
+                }
+            }
+        }
+        else{
+            throw new CorredorExcepcion(("La lista está vacía"));
+        }
+    }   
     
 }
