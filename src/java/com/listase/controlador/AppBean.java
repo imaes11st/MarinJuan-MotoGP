@@ -15,6 +15,12 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.ApplicationScoped;
+import org.primefaces.model.diagram.Connection;
+import org.primefaces.model.diagram.DefaultDiagramModel;
+import org.primefaces.model.diagram.Element;
+import org.primefaces.model.diagram.endpoint.DotEndPoint;
+import org.primefaces.model.diagram.endpoint.EndPointAnchor;
+import org.primefaces.model.diagram.DiagramModel;
 
 /**
  *
@@ -39,6 +45,8 @@ public class AppBean {
     
     private boolean verInicio=true;
     
+    private DefaultDiagramModel model;
+    
     /**
      * Creates a new instance of AppBean
      */
@@ -48,6 +56,43 @@ public class AppBean {
     @PostConstruct
     public void inicializar()
     {
+            model = new DefaultDiagramModel();
+            model.setMaxConnections(-1);
+            model.setConnectionsDetachable(false);
+            
+            Element elementA = new Element("Toma todo", "10em", "6em");
+            elementA.addEndPoint(new DotEndPoint(EndPointAnchor.BOTTOM));
+        
+            Element elementB = new Element("Toma uno", "20em", "18em");
+            elementB.addEndPoint(new DotEndPoint(EndPointAnchor.RIGHT));
+        
+            Element elementC = new Element("Toma dos", "30em", "18em");
+            elementC.addEndPoint(new DotEndPoint(EndPointAnchor.LEFT));
+            
+            Element elementD = new Element("Todos ponen", "60em", "30em");
+            elementD.addEndPoint(new DotEndPoint(EndPointAnchor.ASSIGN));
+        
+            Element elementE = new Element("Pon uno", "40em", "18em");
+            elementE.addEndPoint(new DotEndPoint(EndPointAnchor.RIGHT));
+        
+            Element elementF = new Element("Pon dos", "50em", "18em");
+            elementF.addEndPoint(new DotEndPoint(EndPointAnchor.LEFT));
+        
+            model.addElement(elementA);
+            model.addElement(elementB);
+            model.addElement(elementC);
+            model.addElement(elementD);
+            model.addElement(elementE);
+            model.addElement(elementF);
+        
+            model.connect(new Connection(elementA.getEndPoints().get(0), elementB.getEndPoints().get(0)));        
+            model.connect(new Connection(elementA.getEndPoints().get(0), elementC.getEndPoints().get(0)));
+            model.connect(new Connection(elementB.getEndPoints().get(0), elementD.getEndPoints().get(0)));
+            model.connect(new Connection(elementC.getEndPoints().get(0), elementE.getEndPoints().get(0)));
+            model.connect(new Connection(elementF.getEndPoints().get(0), elementE.getEndPoints().get(0)));        
+            model.connect(new Connection(elementF.getEndPoints().get(0), elementD.getEndPoints().get(0)));
+            
+            
         listadoCorredores = connCorredor.findAll();
         listaCircularCorredores = new ListaCircularDE();
         //recorrer el listado y envio el Corredor a la lista SE
@@ -114,9 +159,14 @@ public class AppBean {
     public void setCorreoTurno(String correoTurno) {
         this.correoTurno = correoTurno;
     }
-    
-    
-    
+
+    public DefaultDiagramModel getModel() {
+        return model;
+    }
+
+    public void setModel(DefaultDiagramModel model) {
+        this.model = model;
+    }
     
     public void aumentarContador(String correo)
     {

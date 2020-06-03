@@ -13,7 +13,7 @@ import java.io.Serializable;
 
 /**
  *
- * @author carloaiza
+ * @author Marin
  */
 public class ListaCircularDE implements Serializable{
     private NodoDE cabeza;

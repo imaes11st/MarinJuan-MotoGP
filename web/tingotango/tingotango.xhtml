@@ -6,13 +6,36 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"      
                 xmlns:f="http://xmlns.jcp.org/jsf/core">    
+    
+   <style type="text/css">
+                .ui-diagram-element {
+                    border:0.1em dotted #000099;    
+                    width:14em; 
+                    height:4em;     
+                    line-height:4em;
+                    text-align: center;
+                    background-color: #66ffff;
+                }
+                .ui-diagram-element-pirinola {   
+                     width:8em; 
+                     height:3em;     
+                     line-height:3em;
+                     text-align: center;
+                     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.8);
+                     border-radius: 4px;
+                     border: 1px solid transparent;
+                     background-color: red;
+                     color: #ffffff;
+                }
 
+            </style>
+    
     <ui:define name="body">
         <center>
             <h:form>
                 <p:poll  interval="3" listener="#{appBean.pasarTingo()}" update="panelDatos" />                
 
-                <p:panel id="panelTingo" header="Bienvenidos a tingo tango - Total Infantes: #{appBean.listaCircularCorredores.contarNodos()}"  >
+                <p:panel id="panelTingo" header="Bienvenidos a la pirinola - Total Jugadores: #{appBean.listaCircularCorredores.contarNodos()}"  >
                     <p:dataTable  value="#{appBean.listadoCorredores}" var="inf">
                         <p:column>
                             <f:facet name="header">
@@ -56,7 +79,7 @@
                                      action="#{appBean.controlarCiclo()}" update="panelBotones,panelTingo"/>
                 </h:panelGroup>
 
-                <p:panel header="Corredor Seleccionado">
+                <p:panel header="Jugador Seleccionado">
                     <p:panelGrid columns="2" id="panelDatos">
                         <p:outputLabel value="Código"/>
                         <p:outputLabel value="#{appBean.corredorSeleccionado.codigo}"/>                        
@@ -68,11 +91,14 @@
                         <p:outputLabel value="#{appBean.corredorSeleccionado.genero}"/>                        
                         <p:outputLabel value="Cidad Nacimiento"/>
                         <p:outputLabel value="#{appBean.corredorSeleccionado.ciudadNacimiento}"/>
+                        
                     </p:panelGrid>
 
                 </p:panel>
-
-
+                
+                <h:panelGroup>
+                <p:diagram value="#{appBean.model}" style="height:400px" styleClass="ui-widget-content" />
+                </h:panelGroup>
 
             </h:form>
         </center>
