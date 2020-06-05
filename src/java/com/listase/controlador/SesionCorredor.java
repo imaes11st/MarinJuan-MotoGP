@@ -488,6 +488,9 @@ public class SesionCorredor implements Serializable {
                 {
                     bandera=true;
                     posicionFinal = posicionCorredor - numeroPosiciones;
+                     
+                    
+                    
                 }
                 break;
             //Perder posicion

@@ -55,17 +55,15 @@ public class Usuario implements Serializable {
     private TipoUsuario tipoUsuario;
 
     public Usuario() {
-    }
-
-    public Usuario(String correo) {
-        this.correo = correo;
-    }
+        }
 
     public Usuario(String correo, String contrasenia, String nombreCompleto) {
         this.correo = correo;
         this.contrasenia = contrasenia;
         this.nombreCompleto = nombreCompleto;
     }
+
+
 
     public String getCorreo() {
         return correo;

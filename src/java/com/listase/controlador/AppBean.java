@@ -9,6 +9,7 @@ import com.listacircularde.modelo.ListaCircularDE;
 import com.listaenlazada.controlador.CorredorFacade;
 import com.listaenlazada.controlador.util.JsfUtil;
 import com.listaenlazada.modelo.Corredor;
+import com.listaenlazada.modelo.Usuario;
 import com.listase.modelo.NodoDE;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -47,6 +48,8 @@ public class AppBean {
     
     private DefaultDiagramModel model;
     
+  
+    
     /**
      * Creates a new instance of AppBean
      */
@@ -60,22 +63,22 @@ public class AppBean {
             model.setMaxConnections(-1);
             model.setConnectionsDetachable(false);
             
-            Element elementA = new Element("Toma todo", "10em", "6em");
+            Element elementA = new Element("Toma todo", "600px", "500px");
             elementA.addEndPoint(new DotEndPoint(EndPointAnchor.BOTTOM));
         
-            Element elementB = new Element("Toma uno", "20em", "18em");
+            Element elementB = new Element("Toma uno", "500px", "40px");
             elementB.addEndPoint(new DotEndPoint(EndPointAnchor.RIGHT));
         
-            Element elementC = new Element("Toma dos", "30em", "18em");
+            Element elementC = new Element("Toma dos", "400px", "400px");
             elementC.addEndPoint(new DotEndPoint(EndPointAnchor.LEFT));
             
-            Element elementD = new Element("Todos ponen", "60em", "30em");
+            Element elementD = new Element("Todos ponen", "500px", "100px");
             elementD.addEndPoint(new DotEndPoint(EndPointAnchor.ASSIGN));
         
-            Element elementE = new Element("Pon uno", "40em", "18em");
+            Element elementE = new Element("Pon uno", "100px", "500px");
             elementE.addEndPoint(new DotEndPoint(EndPointAnchor.RIGHT));
         
-            Element elementF = new Element("Pon dos", "50em", "18em");
+            Element elementF = new Element("Pon dos", "100px", "300px");
             elementF.addEndPoint(new DotEndPoint(EndPointAnchor.LEFT));
         
             model.addElement(elementA);
@@ -173,7 +176,7 @@ public class AppBean {
         switch(correo)
         {
             case "estebanmarin17@hotmail.com":
-                correoTurno= "consulta@hotmail.com";
+                correoTurno= "ejemplo@ejemplo.com";
                 break;
             default:
                 correoTurno= "estebanmarin17@hotmail.com";
@@ -225,6 +228,15 @@ public class AppBean {
         }    
         verInicio = !verInicio;
     }
+    
+        public void pintarFicha (String parametro){
+            
+        
+        
+        
+        
+    }
+
     
     
 }

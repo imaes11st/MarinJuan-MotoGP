@@ -80,7 +80,7 @@ public class ListaCircularPirinola implements Serializable {
         }
     }
     
-    public String listarCorredores(String listado) throws DatoPirinolaExcepcion
+    public String listarCaras(String listado) throws DatoPirinolaExcepcion
      {
         if (cabeza != null) {
             NodoPirinola temp = cabeza;

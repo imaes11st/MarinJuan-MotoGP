@@ -14,6 +14,8 @@ public class DatoPirinola {
     private String cantidad;
     private String texto;
     private boolean ganaPierde;
+    
+    
 
     public String getCantidad() {
         return cantidad;

@@ -135,7 +135,7 @@ public class Corredor implements Serializable {
 
     @Override
     public String toString() {
-        return "[ codigo=" + codigo + " ]";
+        return this.nombre;
     }
     
 }
